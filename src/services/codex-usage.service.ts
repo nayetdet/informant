@@ -3,14 +3,13 @@ import {
   AppServerInitResultSchema,
   UsageLimitsResponseSchema,
 } from "@/schemas/codex-usage";
+import { buildCodexClientInfo } from "@/factories/codex-client-info.factory";
 import { UsageWindowRepository } from "@/repositories/usage-window.repository";
 import {
   WEEKLY_WINDOW_MINUTES,
   type UsageWindow,
   type UsageWindowGroup,
 } from "@/types/codex-usage";
-
-const CLIENT_INFO = { name: "informant", version: "1.0.0" } as const;
 
 export class CodexUsageService {
   private readonly usageWindowRepository = new UsageWindowRepository();
@@ -19,15 +18,11 @@ export class CodexUsageService {
     return this.usageWindowRepository.get();
   }
 
-  async saveCurrentUsageWindow(usageWindow: UsageWindow): Promise<void> {
-    await this.usageWindowRepository.save(usageWindow);
-  }
-
   async getCurrentUsageWindow(): Promise<UsageWindow> {
     await using client = new CodexClient();
     await client.send(
       "initialize",
-      { clientInfo: CLIENT_INFO },
+      { clientInfo: await buildCodexClientInfo() },
       AppServerInitResultSchema
     );
 

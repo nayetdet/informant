@@ -10,6 +10,13 @@ export type CodexJsonRpcResponse = {
   error?: CodexJsonRpcError;
 };
 
+export type CodexJsonRpcRequest = {
+  jsonrpc: "2.0";
+  id: number;
+  method: string;
+  params: unknown;
+};
+
 export type CodexPendingRequest = {
   resolve: (value: unknown) => void;
   reject: (reason: Error) => void;
@@ -20,9 +27,7 @@ export type CodexExitState = {
   resolve: () => void;
 };
 
-export type CodexJsonRpcRequest = {
-  jsonrpc: "2.0";
-  id: number;
-  method: string;
-  params: unknown;
+export type CodexClientInfo = {
+  name: string;
+  version: string;
 };
