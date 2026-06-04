@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: informant
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: informant
+              image: ghcr.io/nayetdet/informant:latest
+              imagePullPolicy: Always
+              env:
+                - name: TZ
+                  valueFrom:
+                    configMapKeyRef:
+                      name: informant-config
+                      key: TZ
+                - name: TELEGRAM_BOT_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: informant-secret
+                      key: TELEGRAM_BOT_TOKEN
+                - name: TELEGRAM_BOT_CHAT_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: informant-secret
+                      key: TELEGRAM_BOT_CHAT_ID
+              volumeMounts:
+                - name: informant-auth-file
+                  mountPath: /__AUTH_FILE_PATH__
+                - name: informant-data
+                  mountPath: /app/.usage-window.json
+                  subPath: .usage-window.json
+          volumes:
+            - name: informant-auth-file
+              hostPath:
+                path: /__AUTH_FILE_PATH__
+                type: File
+            - name: informant-data
+              persistentVolumeClaim:
+                claimName: informant-pvc

@@ -20,4 +20,5 @@ ENV NODE_ENV=production
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile --production
 COPY --from=build /app/src ./src
+VOLUME ["/app"]
 CMD ["bun", "run", "src/index.ts"]

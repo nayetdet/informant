@@ -1,0 +1,26 @@
+resources:
+  - cronjob.yml
+  - pvc.yml
+
+secretGenerator:
+  - name: informant-secret
+    envs:
+      - .env.secret
+
+configMapGenerator:
+  - name: informant-config
+    envs:
+      - .env.config
+
+replacements:
+  - source:
+      kind: ConfigMap
+      name: informant-config
+      fieldPath: data.AUTH_FILE_PATH
+    targets:
+      - select:
+          kind: CronJob
+          name: informant
+        fieldPaths:
+          - spec.jobTemplate.spec.template.spec.volumes.[name=informant-auth-file].hostPath.path
+          - spec.jobTemplate.spec.template.spec.containers.[name=informant].volumeMounts.[name=informant-auth-file].mountPath
