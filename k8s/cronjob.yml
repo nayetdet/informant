@@ -35,18 +35,23 @@ spec:
                       name: informant-secret
                       key: TELEGRAM_BOT_CHAT_ID
               volumeMounts:
-                - name: informant-auth-file
-                  mountPath: /root/.codex
+                - name: informant-auth-data
+                  mountPath: /root/.codex/auth.json
+                  subPath: auth.json
                   readOnly: true
+                - name: informant-codex-data
+                  mountPath: /root/.codex
                 - name: informant-data
                   mountPath: /app/data
           volumes:
-            - name: informant-auth-file
+            - name: informant-auth-data
               secret:
                 secretName: informant-auth-secret
                 items:
                   - key: auth.json
                     path: auth.json
+            - name: informant-codex-data
+              emptyDir: {}
             - name: informant-data
               persistentVolumeClaim:
                 claimName: informant-pvc
