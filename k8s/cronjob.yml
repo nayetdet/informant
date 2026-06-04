@@ -36,8 +36,7 @@ spec:
                       key: TELEGRAM_BOT_CHAT_ID
               volumeMounts:
                 - name: informant-auth-file
-                  # Replaced by kustomize from `informant-config.data.AUTH_FILE_PATH`.
-                  mountPath: /
+                  mountPath: /root/.codex/auth.json
                 - name: informant-data
                   mountPath: /app/.usage-window.json
                   subPath: .usage-window.json
@@ -45,7 +44,7 @@ spec:
             - name: informant-auth-file
               hostPath:
                 # Replaced by kustomize from `informant-config.data.AUTH_FILE_PATH`.
-                path: /
+                path: /root/.codex/auth.json
                 type: File
             - name: informant-data
               persistentVolumeClaim:

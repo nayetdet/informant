@@ -43,4 +43,3 @@ replacements:
           name: informant
         fieldPaths:
           - spec.jobTemplate.spec.template.spec.volumes.[name=informant-auth-file].hostPath.path
-          - spec.jobTemplate.spec.template.spec.containers.[name=informant].volumeMounts.[name=informant-auth-file].mountPath
