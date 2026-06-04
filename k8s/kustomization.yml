@@ -6,6 +6,9 @@ secretGenerator:
   - name: informant-secret
     envs:
       - .env.secret
+  - name: informant-auth-secret
+    files:
+      - auth.json
 
 configMapGenerator:
   - name: informant-config
@@ -33,13 +36,3 @@ replacements:
           name: informant
         fieldPaths:
           - spec.schedule
-  - source:
-      kind: ConfigMap
-      name: informant-config
-      fieldPath: data.AUTH_FILE_PATH
-    targets:
-      - select:
-          kind: CronJob
-          name: informant
-        fieldPaths:
-          - spec.jobTemplate.spec.template.spec.volumes.[name=informant-auth-file].hostPath.path
