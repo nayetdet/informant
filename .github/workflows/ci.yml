@@ -3,6 +3,13 @@ name: CI
 on:
   push:
     branches: [main]
+    paths:
+      - .github/**
+      - docker/**
+      - src/**
+      - bun.lock
+      - package.json
+      - tsconfig.json
   workflow_dispatch:
 
 jobs:
@@ -65,4 +72,3 @@ jobs:
           package-type: container
           min-versions-to-keep: 5
           delete-only-untagged-versions: true
-  
