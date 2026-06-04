@@ -1,10 +1,10 @@
-import {
-  CodexUsageService,
-} from "@/services/codex-usage.service";
+import { CodexUsageService } from "@/services/codex-usage.service";
 
 async function main(): Promise<void> {
   try {
-    const window = await new CodexUsageService().getCurrentUsageWindow();
+    const codexUsageService = new CodexUsageService();
+    const window = await codexUsageService.getCurrentUsageWindow();
+    await codexUsageService.saveCurrentUsageWindow(window);
     console.log(window);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
