@@ -7,7 +7,7 @@ export type UsageWindowData = {
   usageWindow: UsageWindow | null;
 };
 
-const DATABASE_PATH = resolve(process.cwd(), ".usage-window.json");
+const DATABASE_PATH = resolve(process.cwd(), "data", ".usage-window.json");
 
 export class UsageWindowRepository {
   private readonly databasePromise: Promise<Low<UsageWindowData>>;

@@ -24,5 +24,5 @@ RUN bun add --global @openai/codex
 RUN bun install --frozen-lockfile --production
 COPY tsconfig.json ./
 COPY --from=build /app/src ./src
-VOLUME ["/app"]
+VOLUME ["/app/data"]
 CMD ["bun", "run", "src/index.ts"]

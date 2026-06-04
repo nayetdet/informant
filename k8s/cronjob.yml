@@ -39,8 +39,7 @@ spec:
                   mountPath: /root/.codex
                   readOnly: true
                 - name: informant-data
-                  mountPath: /app/.usage-window.json
-                  subPath: .usage-window.json
+                  mountPath: /app/data
           volumes:
             - name: informant-auth-file
               secret:

@@ -39,4 +39,4 @@ k8s/auth.json
 .DS_Store
 
 # Data
-.usage-window.json
+data/
