@@ -14,6 +14,17 @@ import {
 export class CodexUsageService {
   private readonly usageWindowRepository = new UsageWindowRepository();
 
+  async isResetTimeChanged(): Promise<boolean> {
+    const previousUsageWindow = await this.getPreviousUsageWindow();
+    const currentUsageWindow = await this.getCurrentUsageWindow();
+    await this.usageWindowRepository.save(currentUsageWindow);
+    if (previousUsageWindow === null) {
+      return false;
+    }
+
+    return previousUsageWindow.resetsAt !== currentUsageWindow.resetsAt;
+  }
+
   async getPreviousUsageWindow(): Promise<UsageWindow | null> {
     return this.usageWindowRepository.get();
   }
