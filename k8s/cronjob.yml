@@ -5,6 +5,8 @@ metadata:
 spec:
   # Replaced by kustomize from `informant-config.data.CRON`.
   schedule: "0 * * * *"
+  # Replaced by kustomize from `informant-config.data.TZ`.
+  timeZone: America/Fortaleza
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:

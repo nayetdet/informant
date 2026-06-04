@@ -16,6 +16,16 @@ replacements:
   - source:
       kind: ConfigMap
       name: informant-config
+      fieldPath: data.TZ
+    targets:
+      - select:
+          kind: CronJob
+          name: informant
+        fieldPaths:
+          - spec.timeZone
+  - source:
+      kind: ConfigMap
+      name: informant-config
       fieldPath: data.CRON
     targets:
       - select:
