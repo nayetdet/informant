@@ -26,6 +26,7 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 k8s/.env.secret
 k8s/.env.config
 k8s/auth.json
+auth.json
 
 # caches
 .eslintcache

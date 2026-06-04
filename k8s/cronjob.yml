@@ -19,6 +19,10 @@ spec:
               image: ghcr.io/nayetdet/informant:latest
               imagePullPolicy: Always
               env:
+                - name: HOME
+                  value: /home/codex
+                - name: CODEX_HOME
+                  value: /home/codex/.codex
                 - name: TZ
                   valueFrom:
                     configMapKeyRef:
@@ -36,11 +40,11 @@ spec:
                       key: TELEGRAM_BOT_CHAT_ID
               volumeMounts:
                 - name: informant-auth-data
-                  mountPath: /root/.codex/auth.json
+                  mountPath: /home/codex/.codex/auth.json
                   subPath: auth.json
                   readOnly: true
                 - name: informant-codex-data
-                  mountPath: /root/.codex
+                  mountPath: /home/codex/.codex
                 - name: informant-data
                   mountPath: /app/data
           volumes:
