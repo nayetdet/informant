@@ -1,0 +1,40 @@
+{
+  "name": "workspace",
+
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+
+  "mounts": [
+    "source=${localEnv:HOME}/.codex,target=/home/vscode/.codex,type=bind"
+  ],
+
+  "runArgs": [
+    "--security-opt=label=disable"
+  ],
+
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24"
+    },
+
+    "ghcr.io/devcontainers-extra/features/bun:1": {},
+
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+  },
+
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/home/vscode/.bun/bin"
+  },
+
+  "postCreateCommand": "bun add -g @openai/codex",
+
+  "customizations": {
+    "vscode": {
+    "extensions": [
+        "golang.Go",
+        "eamodio.gitlens",
+        "usernamehw.errorlens",
+        "mikestead.dotenv"
+      ]
+    }
+  }
+}

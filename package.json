@@ -1,0 +1,19 @@
+{
+  "name": "informant",
+  "version": "1.0.0",
+  "type": "module",
+  "module": "src/index.ts",
+  "private": true,
+  "scripts": {
+    "start": "bun run src/index.ts"
+  },
+  "dependencies": {
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
