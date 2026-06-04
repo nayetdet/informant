@@ -20,8 +20,9 @@ ENV NODE_ENV=production \
     PATH="/root/.bun/bin:${PATH}"
 
 COPY package.json bun.lock ./
-RUN bun install --frozen-lockfile --production
 RUN bun add --global @openai/codex
+RUN bun install --frozen-lockfile --production
+COPY tsconfig.json ./
 COPY --from=build /app/src ./src
 VOLUME ["/app"]
 CMD ["bun", "run", "src/index.ts"]
