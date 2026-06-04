@@ -16,9 +16,12 @@ RUN bunx tsc --noEmit
 # Runtime Stage
 FROM oven/bun:1.3.14 AS runtime
 WORKDIR /app
-ENV NODE_ENV=production
+ENV NODE_ENV=production \
+    PATH="/root/.bun/bin:${PATH}"
+
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile --production
+RUN bun add --global @openai/codex
 COPY --from=build /app/src ./src
 VOLUME ["/app"]
 CMD ["bun", "run", "src/index.ts"]
