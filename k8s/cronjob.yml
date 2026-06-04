@@ -3,6 +3,7 @@ kind: CronJob
 metadata:
   name: informant
 spec:
+  # Replaced by kustomize from `informant-config.data.CRON`.
   schedule: "0 * * * *"
   concurrencyPolicy: Forbid
   jobTemplate:
@@ -33,14 +34,16 @@ spec:
                       key: TELEGRAM_BOT_CHAT_ID
               volumeMounts:
                 - name: informant-auth-file
-                  mountPath: /__AUTH_FILE_PATH__
+                  # Replaced by kustomize from `informant-config.data.AUTH_FILE_PATH`.
+                  mountPath: /
                 - name: informant-data
                   mountPath: /app/.usage-window.json
                   subPath: .usage-window.json
           volumes:
             - name: informant-auth-file
               hostPath:
-                path: /__AUTH_FILE_PATH__
+                # Replaced by kustomize from `informant-config.data.AUTH_FILE_PATH`.
+                path: /
                 type: File
             - name: informant-data
               persistentVolumeClaim:
