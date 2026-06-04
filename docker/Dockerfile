@@ -1,0 +1,23 @@
+# Base Image
+FROM oven/bun:1.3.14 AS base
+WORKDIR /app
+COPY package.json bun.lock ./
+
+# Deps Stage
+FROM base AS deps
+RUN bun install --frozen-lockfile
+
+# Build Stage
+FROM deps AS build
+COPY tsconfig.json ./
+COPY src ./src
+RUN bunx tsc --noEmit
+
+# Runtime Stage
+FROM oven/bun:1.3.14 AS runtime
+WORKDIR /app
+ENV NODE_ENV=production
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile --production
+COPY --from=build /app/src ./src
+CMD ["bun", "run", "src/index.ts"]
