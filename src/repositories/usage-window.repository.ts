@@ -1,7 +1,8 @@
-import { resolve } from "node:path";
+import { dirname, resolve } from "node:path";
 import { JSONFilePreset } from "lowdb/node";
 import type { Low } from "lowdb";
 import type { UsageWindow } from "@/types/codex-usage";
+import { mkdir } from "node:fs/promises";
 
 export type UsageWindowData = {
   usageWindow: UsageWindow | null;
@@ -13,9 +14,12 @@ export class UsageWindowRepository {
   private readonly databasePromise: Promise<Low<UsageWindowData>>;
 
   constructor() {
-    this.databasePromise = JSONFilePreset<UsageWindowData>(DATABASE_PATH, {
-      usageWindow: null,
-    });
+    this.databasePromise = mkdir(dirname(DATABASE_PATH), { recursive: true })
+      .then(() =>
+        JSONFilePreset<UsageWindowData>(DATABASE_PATH, {
+          usageWindow: null,
+        }),
+      );
   }
 
   async get(): Promise<UsageWindow | null> {
