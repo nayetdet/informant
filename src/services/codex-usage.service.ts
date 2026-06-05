@@ -29,7 +29,7 @@ export class CodexUsageService {
 
   readonly getCurrentUsageWindow = memoizee(
     async (): Promise<UsageWindow> => {
-      await using client = new CodexClient();
+      await using client = await CodexClient.create();
       await client.send(
         "initialize",
         { clientInfo: await buildCodexClientInfo() },

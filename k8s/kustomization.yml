@@ -6,9 +6,6 @@ secretGenerator:
   - name: informant-secret
     envs:
       - .env.secret
-  - name: informant-auth-secret
-    files:
-      - auth.json
 
 configMapGenerator:
   - name: informant-config
