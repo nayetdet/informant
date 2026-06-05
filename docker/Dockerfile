@@ -20,7 +20,7 @@ ENV NODE_ENV=production \
     PATH="/root/.bun/bin:${PATH}"
 
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends bubblewrap \
+  && apt-get install -y --no-install-recommends nodejs bubblewrap \
   && rm -rf /var/lib/apt/lists/*
 
 COPY package.json bun.lock ./
