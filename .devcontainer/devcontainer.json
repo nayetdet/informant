@@ -4,7 +4,8 @@
   "image": "mcr.microsoft.com/devcontainers/base:bookworm",
 
   "mounts": [
-    "source=${localEnv:HOME}/.codex,target=/home/vscode/.codex,type=bind"
+    "source=${localEnv:HOME}/.codex,target=/home/vscode/.codex,type=bind",
+    "source=${localEnv:HOME}/.kube,target=/home/vscode/.kube,type=bind,consistency=cached"
   ],
 
   "runArgs": [
@@ -18,7 +19,11 @@
 
     "ghcr.io/devcontainers-extra/features/bun:1": {},
 
-    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
+      "version": "latest"
+    }
   },
 
   "remoteEnv": {
